@@ -99,3 +99,19 @@ def predecir_tiempo_ruta(modelo, origen, destino, distancia, hora, dia, clima, a
 
     tiempo_predicho = modelo.predict(nueva_ruta)
     return tiempo_predicho[0]
+
+# Ejemplo de predicción para una nueva ruta
+nuevo_origen = 'los Alcázares'
+nuevo_destino = 'Flora Industrial'
+nueva_distancia = 5
+nueva_hora = 9
+nuevo_dia = 'Viernes'
+nuevo_clima = 'Nublado'
+
+# Obtener todas las columnas del dataframe de entrenamiento (sin la variable objetivo)
+all_train_columns = X_train.columns.tolist()
+
+tiempo_estimado = predecir_tiempo_ruta(modelo_rf, nuevo_origen, nuevo_destino, nueva_distancia,
+                                       nueva_hora, nuevo_dia, nuevo_clima, all_train_columns)
+
+print(f"\nEl tiempo estimado de viaje de {nuevo_origen} a {nuevo_destino} es de {tiempo_estimado:.2f} minutos.")

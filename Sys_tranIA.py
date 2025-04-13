@@ -39,3 +39,6 @@ df = df.dropna(subset=[col for col in df.columns if 'destino_' in col])
 # Separar características (X) y variable objetivo (y)
 X = df.drop('tiempo_estimado_minutos', axis=1)
 y = df['tiempo_estimado_minutos']
+
+# Dividir los datos en conjuntos de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

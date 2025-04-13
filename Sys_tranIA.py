@@ -26,3 +26,16 @@ data = {
                        'Lluvioso', 'Soleado', 'Nublado', 'Lluvioso', 'Soleado', 'Nublado', 'Lluvioso', 'Soleado'],
     'tiempo_estimado_minutos': [10, 12, 15, 10, 20, 16, 25, 18, 22, 14, 20, 18, 11, 7, 5, 13, 9, 8, 19, 6, 10, 15] # Variable objetivo
 }
+
+df = pd.DataFrame(data)
+
+# Preprocesamiento de datos
+# Convertir variables categóricas a numéricas usando one-hot encoding
+df = pd.get_dummies(df, columns=['origen', 'destino', 'dia_semana', 'condicion_clima'], dummy_na=True)
+
+# Eliminar filas con valores nulos introducidos por el one-hot encoding de 'destino'
+df = df.dropna(subset=[col for col in df.columns if 'destino_' in col])
+
+# Separar características (X) y variable objetivo (y)
+X = df.drop('tiempo_estimado_minutos', axis=1)
+y = df['tiempo_estimado_minutos']

@@ -101,12 +101,12 @@ def predecir_tiempo_ruta(modelo, origen, destino, distancia, hora, dia, clima, a
     return tiempo_predicho[0]
 
 # Ejemplo de predicción para una nueva ruta
-nuevo_origen = 'los Alcázares'
-nuevo_destino = 'Flora Industrial'
-nueva_distancia = 5
-nueva_hora = 9
-nuevo_dia = 'Viernes'
-nuevo_clima = 'Nublado'
+nuevo_origen = 'Calima'
+nuevo_destino = 'Popular'
+nueva_distancia = 7.5
+nueva_hora = 10
+nuevo_dia = 'Lunes'
+nuevo_clima = 'Soleado'
 
 # Obtener todas las columnas del dataframe de entrenamiento (sin la variable objetivo)
 all_train_columns = X_train.columns.tolist()

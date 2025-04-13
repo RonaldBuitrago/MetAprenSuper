@@ -58,3 +58,44 @@ y_pred = modelo_rf.predict(X_test)
 # Evaluar el modelo
 mse = mean_squared_error(y_test, y_pred)
 print(f"Error Cuadrático Medio del modelo: {mse:.2f}")
+
+# --- Uso del Modelo para Predecir el Tiempo de una Nueva Ruta ---
+# Para predecir el tiempo de una nueva ruta, se deben proporcionar las características
+# en el mismo formato que se usó para entrenar el modelo.
+
+def predecir_tiempo_ruta(modelo, origen, destino, distancia, hora, dia, clima, all_columns):
+    """
+    Predice el tiempo de viaje para una nueva ruta utilizando el modelo entrenado.
+
+    Args:
+        modelo: El modelo de aprendizaje automático entrenado.
+        origen (str): El origen de la ruta.
+        destino (str): El destino de la ruta.
+        distancia (float): La distancia de la ruta en kilómetros.
+        hora (int): La hora de inicio del viaje.
+        dia (str): El día de la semana del viaje.
+        clima (str): La condición climática durante el viaje.
+        all_columns (list): Todas las columnas esperadas por el modelo (para asegurar el orden correcto).
+
+    Returns:
+        float: El tiempo de viaje estimado en minutos.
+    """
+    nueva_ruta = pd.DataFrame({
+        'distancia_km': [distancia],
+        'hora_inicio': [hora],
+        'origen_' + origen: [1],
+        'destino_' + destino: [1],
+        'dia_semana_' + dia: [1],
+        'condicion_clima_' + clima: [1]
+    })
+
+    # Asegurar que la nueva instancia tenga todas las columnas necesarias
+    for col in all_columns:
+        if col not in nueva_ruta.columns:
+            nueva_ruta[col] = 0
+
+    # Seleccionar y ordenar las columnas en el mismo orden que durante el entrenamiento
+    nueva_ruta = nueva_ruta[all_columns]
+
+    tiempo_predicho = modelo.predict(nueva_ruta)
+    return tiempo_predicho[0]

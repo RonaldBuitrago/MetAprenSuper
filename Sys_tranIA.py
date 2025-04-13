@@ -42,3 +42,19 @@ y = df['tiempo_estimado_minutos']
 
 # Dividir los datos en conjuntos de entrenamiento y prueba
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# --- Desarrollo del Modelo de Aprendizaje Supervisado (Regresión) ---
+# Se utilizará un modelo de Random Forest Regressor para predecir el tiempo de viaje.
+
+# Inicializar el modelo
+modelo_rf = RandomForestRegressor(n_estimators=100, random_state=42) # n_estimators: número de árboles en el bosque
+
+# Entrenar el modelo
+modelo_rf.fit(X_train, y_train)
+
+# Realizar predicciones en el conjunto de prueba
+y_pred = modelo_rf.predict(X_test)
+
+# Evaluar el modelo
+mse = mean_squared_error(y_test, y_pred)
+print(f"Error Cuadrático Medio del modelo: {mse:.2f}")
